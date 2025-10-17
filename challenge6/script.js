@@ -4,9 +4,9 @@ const languagePrompt = {
   question: 'What is your favorite programming language',
   options: [
     '1. JavaScript',
-    '2. PHP',
+    '2. PHP (psycho)',
     '3. Java',
-    '4. Assembly',
+    '4. Assembly (psychoer)',
     '5. Rust',
     '6. TypeScript',
   ],
@@ -20,7 +20,7 @@ const createPoll = (prompt) => {
   const votes = new Map();
   prompt.options.forEach((name) => votes.set(name, 0));
 
-  const allKeys = Array.from(votes.keys());
+  const allKeys = [...votes.keys()];
 
   //log the q and options on the console
   console.log(prompt.question + ' : ' + allKeys.join(', '));
@@ -31,9 +31,9 @@ const createPoll = (prompt) => {
         const optionKey = allKeys[optionIndex - 1];
         votes.set(optionKey, votes.get(optionKey) + 1);
         console.log(
-          `Voted for: ${optionKey}, Actual votes: ${JSON.stringify([
-            ...votes.entries(),
-          ])}`
+          `Voted for: ${optionKey}, Actual votes: ${[...votes.entries()].join(
+            ' | '
+          )}`
         );
       } else {
         console.error('Invalid option index');
