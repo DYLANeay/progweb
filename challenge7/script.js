@@ -6,6 +6,8 @@ const highscore = document.querySelector('#highscore');
 const hint = document.querySelector('#hint');
 const againBtn = document.querySelector('#again');
 const checkBtn = document.querySelector('#check');
+const answer = document.querySelector('#answer');
+
 let isPlaying = true;
 
 const pickRandomNumber = (min, max) =>
@@ -41,7 +43,8 @@ const checkScore = (guess) => {
     updateScore();
   } else {
     hint.textContent = 'Correct! You won!';
-
+    answer.textContent = secretNumber;
+    answer.classList.add('correct');
     document.body.style.backgroundColor = 'green';
     isPlaying = false;
   }
@@ -71,4 +74,7 @@ againBtn.addEventListener('click', () => {
   hint.textContent = 'Start guessing...';
   input.value = '';
   secretNumber = pickRandomNumber(1, 20);
+  answer.textContent = '?';
+  answer.classList.remove('correct');
+  document.body.style.backgroundColor = '#222';
 });
