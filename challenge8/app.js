@@ -40,6 +40,9 @@ const inputLoginPin = document.querySelector('.login__input--pin');
 const inputTransferTo = document.querySelector('.form__input--to');
 const inputTransferAmount = document.querySelector('.form__input--amount');
 
+const btnColorMode = document.querySelector('.color_mode');
+const root = document.documentElement;
+
 let currentAccount;
 
 const matchUser = (username, pin) => {
@@ -101,6 +104,14 @@ btnTransfer.addEventListener('click', (e) => {
   } catch (err) {
     message(err.message, true);
   }
+});
+
+btnColorMode.addEventListener('click', () => {
+  root.style.setProperty('--primary', '#121212');
+  root.style.setProperty('--primary-lighter', '#1e1e1e');
+  root.style.setProperty('--secondary', '#e0e0e0');
+  root.style.setProperty('--deposit', '#60b347');
+  root.style.setProperty('--withdrawal', '#ff4c4c');
 });
 
 const calculateIncomes = (movements) => {

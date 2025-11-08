@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--secondary);
   background-color: var(--primary);
   height: 100vh;
@@ -273,4 +273,17 @@ h2 {
   font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s;
+}
+
+.color_mode {
+  background-color: white;
+  font-family: 'Inter', sans-serif;
+  padding: 0.5rem 1rem;
+  color: var(--primary)-lighter;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0.7rem;
+  background-color: var(--primary-lighter);
+  cursor: pointer;
+  z-index: 10;
 }
