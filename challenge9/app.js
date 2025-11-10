@@ -13,6 +13,7 @@ const square = `<svg viewBox="0 0 100 100" data-shape="square">
 </svg>`;
 
 container.addEventListener('mouseover', (e) => {
+  console.dir(e.target);
   if (!e.target.children[0]) return;
   const shapeType = e.target.children[0].dataset.shape;
 
