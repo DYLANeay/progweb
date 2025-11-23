@@ -1,31 +1,47 @@
 'use strict';
 
 const section = document.querySelector('section#board');
+const stationNameEl = document.querySelector('#station-name');
 
-const URL_API =
-	'https://transport.opendata.ch/v1/stationboard?station=Yverdon-les-bains&limit=10';
-const req = new XMLHttpRequest();
-req.open('GET', URL_API);
-req.send();
+const fetchStationboard = (stationName) => {
+	const URL_API = `https://transport.opendata.ch/v1/stationboard?station=
+		${stationName}
+	)}&limit=10`;
+	const req = new XMLHttpRequest();
+	req.open('GET', URL_API);
+	req.send();
 
-req.addEventListener('load', (e) => {
-	const data = JSON.parse(e.target.responseText);
-	const stationboard = [];
+	req.addEventListener('load', (e) => {
+		const data = JSON.parse(e.target.responseText);
+		const stationboard = [];
 
-	console.log(data.stationboard);
-	for (let i = 0; i < data.stationboard.length; i++) {
-		let departureTime = data.stationboard[i].stop.departure;
-		let formattedTime = departureTime.slice(11, 16);
+		console.log(data.stationboard);
 
-		stationboard.push({
-			time: formattedTime,
-			category: data.stationboard[i].category,
-			to: data.stationboard[i].to,
-		});
+		for (let i = 0; i < data.stationboard.length; i++) {
+			let departureTime = data.stationboard[i].stop.departure;
+			let formattedTime = departureTime.slice(11, 16);
+
+			stationboard.push({
+				time: formattedTime,
+				category: data.stationboard[i].category,
+				to: data.stationboard[i].to,
+			});
+		}
+
+		displayStationboard(stationboard);
+		stationNameEl.textContent = data.station.name;
+	});
+};
+
+stationNameEl.style.cursor = 'pointer';
+stationNameEl.addEventListener('click', () => {
+	const newStation = prompt('Enter a station name:', stationNameEl.textContent);
+	if (newStation && newStation.trim() !== '') {
+		fetchStationboard(newStation.trim());
 	}
-
-	displayStationboard(stationboard);
 });
+
+fetchStationboard('Yverdon-les-Bains');
 
 const displayStationboard = (arr) => {
 	section.innerHTML = '';
