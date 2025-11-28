@@ -13,20 +13,14 @@ const fetchStationboard = (stationName) => {
 
 	req.addEventListener('load', (e) => {
 		const data = JSON.parse(e.target.responseText);
-		const stationboard = [];
 
 		console.log(data.stationboard);
 
-		for (let i = 0; i < data.stationboard.length; i++) {
-			let departureTime = data.stationboard[i].stop.departure;
-			let formattedTime = departureTime.slice(11, 16);
-
-			stationboard.push({
-				time: formattedTime,
-				category: data.stationboard[i].category,
-				to: data.stationboard[i].to,
-			});
-		}
+		const stationboard = data.stationboard.map(entry => ({
+			time: entry.stop.departure.slice(11, 16),
+			category: entry.category,
+			to: entry.to
+		}));
 
 		displayStationboard(stationboard);
 		stationNameEl.textContent = data.station.name;
